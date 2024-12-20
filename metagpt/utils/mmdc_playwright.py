@@ -31,7 +31,10 @@ async def mermaid_to_file(mermaid_code, output_file_without_suffix, width=2048, 
     __dirname = os.path.dirname(os.path.abspath(__file__))
 
     async with async_playwright() as p:
-        browser = await p.chromium.launch()
+        browser = await p.chromium.launch(
+            headless=True,
+            args=["--disable-gpu"]
+        )
         device_scale_factor = 1.0
         context = await browser.new_context(
             viewport={"width": width, "height": height},
